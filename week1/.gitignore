@@ -1,0 +1,4 @@
+.ipynb_checkpoints/
+data_files/
+ny_taxi_postgres_data/
+.env

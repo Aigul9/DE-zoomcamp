@@ -1,0 +1,48 @@
+docker network create pg-network
+
+docker run -it \
+  -e POSTGRES_USER="root" \
+  -e POSTGRES_PASSWORD="root" \
+  -e POSTGRES_DB="ny_taxi" \
+  -v E:/EDesktop/zoomcamp/de-zoomcamp/week1/ny_taxi_postgres_data:/var/lib/postgresql/data \
+  -p 5432:5432 \
+  --network=pg-network \
+  --name pg-database \
+  postgres:13
+
+pgcli -h localhost -p 5432 -u root -d ny_taxi
+
+# wc - word count, -l number of lines
+wc -l yellow_tripdata_2021-01.csv
+
+# fields description
+https://www.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf
+
+# table definition (DESC for MySQL)
+\d yellow_taxi_data
+
+docker run -it \
+  -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
+  -e PGADMIN_DEFAULT_PASSWORD="root" \
+  -p 8080:80 \
+  --network=pg-network \
+  --name pgadmin \
+  dpage/pgadmin4
+
+# convert to .py
+jupyter nbconvert --to=script postgres_import.ipynb
+
+# history of bash commands
+history
+
+# or use .env
+python ingest_data.py \
+  --user=root \
+  --password=root \ 
+  --host=localhost \ 
+  --port=5432 \
+
+docker build -t taxi_ingest:v001 .
+
+docker run taxi_ingest:v001
+docker run -it --network=pg-network taxi_ingest:v001
