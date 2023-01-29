@@ -9,6 +9,7 @@ Tasks: https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/coho
 ### Question 2. Understanding docker first run
 
 ```docker run -it python:3.9 bash
+
 pip list```
 
 ### Question 3. Count records
