@@ -27,7 +27,8 @@ SELECT cast(lpep_pickup_datetime AS date),
        max(trip_distance)
 FROM green_taxi_data_jan_2019
 GROUP BY 1
-ORDER BY 2 DESC;
+ORDER BY 2 DESC
+LIMIT 1;
 ```
 
 ### Question 5. The number of passengers
@@ -51,5 +52,6 @@ FROM green_taxi_data_jan_2019 d
 JOIN zones z1 ON d."PULocationID" = z1."LocationID"
 JOIN zones z2 ON d."DOLocationID" = z2."LocationID"
 WHERE z1."Zone" = 'Astoria'
-ORDER BY 2 DESC;
+ORDER BY 2 DESC
+LIMIT 1;
 ```
