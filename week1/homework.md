@@ -4,25 +4,12 @@ Tasks: https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/coho
 
 ### Question 1. Knowing docker tags
 
-docker build --help
-
-Answer:
-
---iidfile string Write the image ID to the file
+```docker build --help```
 
 ### Question 2. Understanding docker first run
 
-docker run -it python:3.9 bash
-
-pip list
-
-Answer:
-
-pip 22.0.4
-
-setuptools 58.1.0
-
-wheel 0.38.4
+```docker run -it python:3.9 bash
+pip list```
 
 ### Question 3. Count records
 
@@ -39,7 +26,7 @@ SELECT cast(lpep_pickup_datetime AS date),
        max(trip_distance)
 FROM green_taxi_data_jan_2019
 GROUP BY 1
-ORDER BY 2 DESC
+ORDER BY 2 DESC;
 ```
 
 ### Question 5. The number of passengers
@@ -51,7 +38,7 @@ FROM green_taxi_data_jan_2019
 WHERE passenger_count in (2,
                           3)
   AND cast(lpep_pickup_datetime AS date) = '2019-01-01'
-GROUP BY passenger_count
+GROUP BY passenger_count;
 ```
 
 ### Question 6. Largest tip
@@ -63,5 +50,5 @@ FROM green_taxi_data_jan_2019 d
 JOIN zones z1 ON d."PULocationID" = z1."LocationID"
 JOIN zones z2 ON d."DOLocationID" = z2."LocationID"
 WHERE z1."Zone" = 'Astoria'
-ORDER BY 2 DESC
+ORDER BY 2 DESC;
 ```
