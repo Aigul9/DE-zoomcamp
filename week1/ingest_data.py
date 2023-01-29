@@ -14,6 +14,7 @@ def main(user, password, host, port, db, table_name, parquet_url):
 
     engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
     parquet_path = 'output.parquet'
+    # parquet_path = 'data_files/green_tripdata_2019-01.parquet'
 
     os.system(f'wget {parquet_url} -O {parquet_path}')
 
@@ -25,8 +26,8 @@ def main(user, password, host, port, db, table_name, parquet_url):
 
         df = batch.to_pandas()
 
-        df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
-        df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+        df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
+        df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
 
         df.to_sql(name=table_name, con=engine, if_exists='append')
 

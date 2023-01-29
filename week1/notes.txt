@@ -51,3 +51,5 @@ https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet
 
 # detached mode (the same terminal is available for us)
 docker compose up -d
+
+HOST=pg-database

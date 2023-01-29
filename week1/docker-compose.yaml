@@ -10,6 +10,8 @@ services:
       - "./ny_taxi_postgres_data:/var/lib/postgresql/data:rw"
     ports:
       - "5432:5432"
+    networks:
+      - pg-network
   pg-admin:
     image: dpage/pgadmin4
     environment:
@@ -19,6 +21,12 @@ services:
       - "pgadmin_conn_data:/var/lib/pgadmin:rw"
     ports:
       - "8080:80"
+    networks:
+      - pg-network
 
 volumes:
   pgadmin_conn_data:
+
+networks:
+  pg-network:
+    driver: bridge
