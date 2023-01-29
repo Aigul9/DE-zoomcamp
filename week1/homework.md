@@ -15,7 +15,7 @@ Tasks: https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/coho
 ### Question 3. Count records
 
 ```sql
-SELECT count(\*)
+SELECT count(*)
 FROM green_taxi_data_jan_2019
 WHERE cast(lpep_pickup_datetime AS date) = '2019-01-15';
 ```
@@ -34,7 +34,7 @@ ORDER BY 2 DESC;
 
 ```sql
 SELECT passenger_count,
-       count(\*)
+       count(*)
 FROM green_taxi_data_jan_2019
 WHERE passenger_count in (2,
                           3)
