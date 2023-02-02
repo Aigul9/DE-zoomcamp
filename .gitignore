@@ -1,5 +1,5 @@
 .ipynb_checkpoints/
-data_files/
+data/
 ny_taxi_postgres_data/
 .env
 notes.txt

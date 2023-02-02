@@ -1,0 +1,10 @@
+pandas==1.4.1
+pandas-gpq==0.19.1
+prefect==2.7.10
+prefect-sqlalchemy==0.2.2
+prefect-gcp[cloud_storage]==0.2.5
+protobuf==4.21.12
+psycopg2-binary==2.9.5
+pyarrow==8.0.0
+python-decouple==3.7
+SQLAlchemy==1.4.9
