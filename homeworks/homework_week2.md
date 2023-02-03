@@ -14,6 +14,8 @@ Answer: 447770
 
 ![Cron scheduling](https://ostechnix.com/wp-content/uploads/2018/05/cron-job-format-1.png)
 
+Answer: 0 5 1 * *
+
 ### Question 3. Loading data to BigQuery
 
 ```
