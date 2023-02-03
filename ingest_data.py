@@ -1,5 +1,3 @@
-"""Pipeline"""
-
 import os
 from time import time
 
@@ -37,7 +35,6 @@ def transform_data(df):
 def ingest_data(user, password, host, port, db, table_name, parquet_file):
     """Loads data from a parquet file to a table in postgres."""
 
-
     engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
 
     for batch in parquet_file.iter_batches():
@@ -69,6 +66,7 @@ def main_flow():
         config('TABLE_NAME'),
         raw_data
     )
+
 
 if __name__ == '__main__':
     main_flow()

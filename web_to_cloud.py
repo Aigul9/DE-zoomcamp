@@ -11,8 +11,8 @@ def fetch(dataset_url: str, path: str) -> None:
     wget.download(dataset_url, out=path)
 
 
-@task
-def write_to_yandex_cloud(path, bucket_name):
+@task(log_prints=True)
+def write_to_yandex_cloud(path: str, bucket_name: str) -> None:
     session = boto3.session.Session()
     s3 = session.client(
         service_name='s3',
@@ -34,13 +34,13 @@ def main_flow():
     color = 'green'
     year = 2020
     month = 1
-    dataset_file = f'{color}_tripdata_{year}-{month:02}.parquet'
-    dataset_url = f'https://d37ci6vzurychx.cloudfront.net/trip-data/{dataset_file}'
-    path = f'data/{dataset_file}'
+    dataset_file = f'{color}_tripdata_{year}-{month:02}'
+    dataset_url = f'https://d37ci6vzurychx.cloudfront.net/trip-data/{dataset_file}.parquet'
+    path = f'data/{dataset_file}.parquet'
 
     fetch(dataset_url, path)
 
-    bucket = 'zoomcamp-bucket'
+    bucket = config('BUCKET')
     write_to_yandex_cloud(path, bucket)
 
 
