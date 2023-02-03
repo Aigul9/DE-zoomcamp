@@ -31,7 +31,7 @@ def transform(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-@task
+@task(log_prints=True)
 def ingest_data(df: pd.DataFrame, table_name) -> None:
     credentials = service_account.Credentials.from_service_account_file(config('CREDENTIALS'))
     df.to_gbq(
@@ -42,22 +42,25 @@ def ingest_data(df: pd.DataFrame, table_name) -> None:
         if_exists='append'
     )
 
+    print(len(df.index))
+
 
 @flow
-def main_flow():
-    """The main ETL function"""
-    color = 'green'
-    year = 2020
-    month = 1
-    dataset_file = f'{color}_tripdata_{year}-{month:02}'
-    path = f'data/{dataset_file}.parquet'
+def main_flow(
+        months: list, year: int = 2021, color: str = 'yellow'
+):
     bucket = config('BUCKET')
 
-    df = extract(bucket, path)
-    df = transform(df)
-    table_name = f'trips_data_all.{dataset_file}'
-    ingest_data(df, table_name)
+    for month in months:
+        dataset_file = f'{color}_tripdata_{year}-{month:02}'
+        path = f'data/{dataset_file}.parquet'
+
+        df = extract(bucket, path)
+        # df = transform(df)
+        table_name = f'trips_data_all.{dataset_file}'
+        ingest_data(df, table_name)
 
 
 if __name__ == '__main__':
-    main_flow()
+    # main_flow([2, 3], 2019)
+    main_flow([4], 2019, 'green')

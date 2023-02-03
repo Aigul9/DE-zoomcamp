@@ -7,7 +7,6 @@ from prefect import flow, task
 
 @task(log_prints=True, retries=3)
 def fetch(dataset_url: str, path: str) -> None:
-    """Save parquet file from web to a local folder"""
     wget.download(dataset_url, out=path)
 
 
@@ -29,20 +28,20 @@ def write_to_yandex_cloud(path: str, bucket_name: str) -> None:
 
 
 @flow
-def main_flow():
-    """The main ETL function"""
-    color = 'green'
-    year = 2020
-    month = 1
-    dataset_file = f'{color}_tripdata_{year}-{month:02}'
-    dataset_url = f'https://d37ci6vzurychx.cloudfront.net/trip-data/{dataset_file}.parquet'
-    path = f'data/{dataset_file}.parquet'
-
-    fetch(dataset_url, path)
-
+def main_flow(
+        months: list, year: int = 2021, color: str = 'yellow'
+):
     bucket = config('BUCKET')
-    write_to_yandex_cloud(path, bucket)
+
+    for month in months:
+        dataset_file = f'{color}_tripdata_{year}-{month:02}'
+        dataset_url = f'https://d37ci6vzurychx.cloudfront.net/trip-data/{dataset_file}.parquet'
+        path = f'data/{dataset_file}.parquet'
+
+        fetch(dataset_url, path)
+        write_to_yandex_cloud(path, bucket)
 
 
 if __name__ == '__main__':
-    main_flow()
+    # main_flow([2, 3], 2019)
+    main_flow([4], 2019, 'green')

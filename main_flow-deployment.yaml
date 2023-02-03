@@ -1,0 +1,72 @@
+###
+### A complete description of a Prefect Deployment for flow 'main-flow'
+###
+name: etl_deploy
+description: The main ETL function
+version: 1605c7a7df81636adead9aba6e6535ad
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+work_pool_name: null
+tags:
+- dev
+parameters: {}
+schedule:
+  cron: 0 5 1 * *
+  timezone: null
+  day_or: true
+is_schedule_active: true
+infra_overrides: {}
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: main-flow
+manifest_path: null
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  _block_document_id: f3ac718b-f43f-480b-82fc-83a969309a2b
+  _block_document_name: anonymous-ac1bd4c7-c369-4df7-ad80-81bb9a45b313
+  _is_anonymous: true
+  block_type_slug: process
+  _block_type_slug: process
+storage:
+  repository: https://github.com/Aigul9/DE-zoomcamp/
+  reference: null
+  access_token: null
+  include_git_objects: true
+  _block_document_id: 7be13985-f5a2-4611-ba7d-16092315fb23
+  _block_document_name: dev
+  _is_anonymous: false
+  block_type_slug: github
+  _block_type_slug: github
+path: ''
+entrypoint: web_to_cloud.py:main_flow
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    months:
+      title: months
+      position: 0
+      type: array
+      items: {}
+    year:
+      title: year
+      default: 2021
+      position: 1
+      type: integer
+    color:
+      title: color
+      default: yellow
+      position: 2
+      type: string
+  required:
+  - months
+  definitions: null
+timestamp: '2023-02-03T21:11:58.794959+00:00'
