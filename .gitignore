@@ -6,3 +6,4 @@ notes.txt
 venv/
 .idea/
 __pycache__/
+.tmp
