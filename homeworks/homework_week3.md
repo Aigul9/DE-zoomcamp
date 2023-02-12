@@ -50,7 +50,7 @@ to create a partition based on this column due to the large number of unique val
 But if we take a day, then the best approach is 2: Partition by pickup_datetime Cluster on affiliated_base_number.
 Clustering by date would add extra complexity to sort the values, which is not needed.
 
-### Question 5. 
+### Question 5. What is the estimated amount of data that will be read when this query is executed on the non-partitioned and partitioned tables?
 
 ```sql
 SELECT DISTINCT Affiliated_base_number
