@@ -9,3 +9,4 @@ __pycache__/
 .tmp
 settings.yaml
 Query results – BigQuery – DE-zoomcamp – Google Cloud console_files/
+test/

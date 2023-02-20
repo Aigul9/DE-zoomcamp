@@ -53,7 +53,7 @@ def main_flow(
 
     for month in months:
         dataset_file = f'{color}_tripdata_{year}-{month:02}'
-        path = f'data/{dataset_file}.parquet'
+        path = f'data/week4/{dataset_file}.parquet'
 
         df = extract(bucket, path)
         # df = transform(df)
@@ -63,4 +63,7 @@ def main_flow(
 
 if __name__ == '__main__':
     # main_flow([2, 3], 2019)
-    main_flow([4], 2019, 'green')
+    main_flow(list(range(1, 13)), 2019, 'yellow')
+    # main_flow(list(range(1, 13)), 2020, 'yellow')
+    # main_flow(list(range(1, 13)), 2019, 'green')
+    # main_flow(list(range(1, 13)), 2020, 'green')

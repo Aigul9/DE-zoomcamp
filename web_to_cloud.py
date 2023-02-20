@@ -1,13 +1,27 @@
+import logging
+import os
+
 import boto3
 import wget
 
 from decouple import config
 from prefect import flow, task
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s - %(filename)s:%(lineno)s:%(funcName)s()',
+)
+logger = logging.getLogger(__name__)
+consoleHandler = logging.StreamHandler()
+logger.addHandler(consoleHandler)
+
 
 @task(log_prints=True, retries=3)
 def fetch(dataset_url: str, path: str) -> None:
-    wget.download(dataset_url, out=path)
+    if not os.path.isfile(path):
+        wget.download(dataset_url, out=path)
+    else:
+        logger.debug(f'Skipped: {dataset_url}')
 
 
 @task(log_prints=True)
