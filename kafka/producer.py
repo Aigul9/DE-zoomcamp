@@ -58,9 +58,9 @@ if __name__ == '__main__':
     producer = JsonProducer(props=config)
 
     green, fhv = zip(INPUT_DATA_PATHS, KAFKA_TOPICS)
-    path, topic = green
-    rides = producer.read_records(resource_path=path, cls=RideGreen)
-    producer.publish_rides(topic=topic, messages=rides)
+    # path, topic = green
+    # rides = producer.read_records(resource_path=path, cls=RideGreen)
+    # producer.publish_rides(topic=topic, messages=rides)
     path, topic = fhv
     rides = producer.read_records(resource_path=path, cls=RideFHV)
     producer.publish_rides(topic=topic, messages=rides)
