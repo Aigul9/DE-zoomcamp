@@ -1,4 +1,0 @@
-from settings import BOOTSTRAP_SERVERS, INPUT_DATA_PATHS, KAFKA_TOPICS
-
-j, i = zip(INPUT_DATA_PATHS, KAFKA_TOPICS)
-print(j, i)

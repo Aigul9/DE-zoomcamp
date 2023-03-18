@@ -38,29 +38,29 @@ class JsonProducer(KafkaProducer):
         for ride in messages:
             try:
                 record = self.producer.send(topic=topic, key=ride.pu_location_id, value=ride)
-                print('Record {} successfully produced at offset {}'.format(ride.pu_location_id, record.get().offset))
+                print(f'Topic: {topic}. Location: {ride.pu_location_id}. Offset: {record.get().offset}')
             except KafkaTimeoutError as e:
                 print(e.__str__())
 
 
 if __name__ == '__main__':
-   config = {
-       'bootstrap_servers': BOOTSTRAP_SERVERS,
-       'api_version': (2, 0, 2),
-       'security_protocol': 'SASL_SSL',
-       'sasl_plain_username': config('USER'),
-       'sasl_plain_password': config('PASSWORD'),
-       'sasl_mechanism': 'PLAIN',
-       'key_serializer': lambda key: str(key).encode(),
-       'value_serializer': lambda x: json.dumps(x.__dict__, default=str).encode('utf-8')
-   }
+    config = {
+        'bootstrap_servers': BOOTSTRAP_SERVERS,
+        'api_version': (2, 0, 2),
+        'security_protocol': 'SASL_SSL',
+        'sasl_plain_username': config('USER'),
+        'sasl_plain_password': config('PASSWORD'),
+        'sasl_mechanism': 'PLAIN',
+        'key_serializer': lambda key: str(key).encode(),
+        'value_serializer': lambda x: json.dumps(x.__dict__, default=str).encode('utf-8')
+    }
 
-   producer = JsonProducer(props=config)
+    producer = JsonProducer(props=config)
 
-   green, fhv = zip(INPUT_DATA_PATHS, KAFKA_TOPICS)
-   path, topic = green
-   rides = producer.read_records(resource_path=path, cls=RideGreen)
-   producer.publish_rides(topic=topic, messages=rides)
-   path, topic = fhv
-   rides = producer.read_records(resource_path=path, cls=RideFHV)
-   producer.publish_rides(topic=topic, messages=rides)
+    green, fhv = zip(INPUT_DATA_PATHS, KAFKA_TOPICS)
+    path, topic = green
+    rides = producer.read_records(resource_path=path, cls=RideGreen)
+    producer.publish_rides(topic=topic, messages=rides)
+    path, topic = fhv
+    rides = producer.read_records(resource_path=path, cls=RideFHV)
+    producer.publish_rides(topic=topic, messages=rides)
